@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import axios from 'axios';
-import dayjs from 'dayjs';
+import React, { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
+import dayjs from "dayjs";
 import {
   ArrowLeft,
   ChevronDown,
@@ -12,21 +12,21 @@ import {
   GitBranch,
   RefreshCw,
   Copy,
-} from 'lucide-react';
-import ConfirmationDialog from '@/components/ConfirmationDialog';
-import { IBackup } from '@/model/BackUp';
-import { CommitType } from '@/types/commitType';
-import { RepositoryType } from '@/types/repositoryType';
-import { useAlert } from '@/context/AlertProvider';
+} from "lucide-react";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
+import { IBackup } from "@/model/BackUp";
+import { CommitType } from "@/types/commitType";
+import { RepositoryType } from "@/types/repositoryType";
+import { useAlert } from "@/context/AlertProvider";
 
 function Backup() {
   const searchParams = useSearchParams();
-  const repo = searchParams.get('repo');
-  const owner = searchParams.get('owner');
+  const repo = searchParams.get("repo");
+  const owner = searchParams.get("owner");
   const [repoDetails, setRepoDetails] = useState<RepositoryType | null>(null);
   const [latestCommit, setLatestCommit] = useState<CommitType | null>(null);
   const [branches, setBranches] = useState<string[]>([]);
-  const [selectedBranch, setSelectedBranch] = useState<string>('');
+  const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [backupHistory, setBackupHistory] = useState<IBackup[]>([]);
   const [loadingRepo, setLoadingRepo] = useState(false);
   const [loadingBackup, setLoadingBackup] = useState(false);
@@ -46,7 +46,7 @@ function Backup() {
       setBranches(response.data.branches);
       setSelectedBranch(response.data.repoDetails.default_branch);
     } catch (error) {
-      console.error('Failed to fetch repo details:', error);
+      console.error("Failed to fetch repo details:", error);
     } finally {
       setLoadingRepo(false);
     }
@@ -60,7 +60,7 @@ function Backup() {
       );
       setBackupHistory(response.data.backupHistory);
     } catch (error) {
-      console.error('Failed to fetch backup history:', error);
+      console.error("Failed to fetch backup history:", error);
     } finally {
       setLoadingBackup(false);
     }
@@ -74,9 +74,8 @@ function Backup() {
   const handleBackupConfirm = async () => {
     setIsBackupDialogOpen(false);
     setLoadingBackupRequest(true);
-    showAlert('Backup initiated...', 'info');
     try {
-      const response = await axios.post('/api/backup', {
+      const response = await axios.post("/api/backup", {
         branchName: selectedBranch,
         repo: repo,
         owner: owner,
@@ -87,16 +86,16 @@ function Backup() {
         ...prevBackupHistory,
       ]);
     } catch (error) {
-      console.error('Failed to initiate backup:', error);
+      console.error("Failed to initiate backup:", error);
     } finally {
       setLoadingBackupRequest(false);
     }
   };
 
   const copyToClipboard = (text: string | undefined) => {
-    if (!text) text = '';
+    if (!text) text = "";
     navigator.clipboard.writeText(text);
-    showAlert('Copied to clipboard!', 'success');
+    showAlert("Copied to clipboard!", "success");
   };
 
   return (
@@ -112,7 +111,7 @@ function Backup() {
             <div
               className="radial-progress animate-spin"
               //@ts-ignore
-              style={{ '--value': 50, '--size': '3rem' }}
+              style={{ "--value": 50, "--size": "3rem" }}
             ></div>
           </div>
         ) : (
@@ -120,11 +119,11 @@ function Backup() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-3xl font-bold flex items-center gap-3">
                 <Database className="text-primary w-6 h-6" />
-                Backup:{' '}
+                Backup:{" "}
                 <span className="text-gray-700">{repoDetails?.name}</span>
               </h2>
               <button className="btn btn-primary" onClick={fetchRepoDetails}>
-                <div className="tooltip" data-tip="Refresh Repo Details">
+                <div className="tooltip" data-tip="Reload">
                   <RefreshCw className="w-5 h-5" />
                 </div>
               </button>
@@ -133,7 +132,7 @@ function Backup() {
               <h3 className="text-xl font-semibold mb-2">Repository Details</h3>
               <div className="flex flex-col gap-4">
                 <p>
-                  <strong>Full Name:</strong>{' '}
+                  <strong>Full Name:</strong>{" "}
                   <a
                     href={repoDetails?.html_url}
                     target="_blank"
@@ -144,30 +143,30 @@ function Backup() {
                   </a>
                 </p>
                 <p>
-                  <strong>Description:</strong>{' '}
-                  {repoDetails?.description || 'No description'}
+                  <strong>Description:</strong>{" "}
+                  {repoDetails?.description || "No description"}
                 </p>
                 <p>
                   <strong>Default Branch:</strong> {repoDetails?.default_branch}
                 </p>
                 {latestCommit && (
                   <p>
-                    <strong>Latest Commit:</strong>{' '}
+                    <strong>Latest Commit:</strong>{" "}
                     <span className="text-primary">
                       {latestCommit.commit.message}
-                    </span>{' '}
-                    by{' '}
+                    </span>{" "}
+                    by{" "}
                     <span className="text-secondary">
                       {latestCommit.author?.login}
-                    </span>{' '}
-                    on{' '}
+                    </span>{" "}
+                    on{" "}
                     {
                       <div className="badge badge-outline">
                         {latestCommit.commit.author?.date
                           ? dayjs(latestCommit.commit.author?.date).format(
-                              'MMMM D, YYYY h:mm A'
+                              "MMMM D, YYYY h:mm A"
                             )
-                          : 'Unknown'}
+                          : "Unknown"}
                       </div>
                     }
                   </p>
@@ -223,7 +222,7 @@ function Backup() {
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xl font-semibold">Backup History</h3>
             <button className="btn btn-primary" onClick={fetchBackupHistory}>
-              <div className="tooltip" data-tip="Refresh Backup History">
+              <div className="tooltip" data-tip="Reload">
                 <RefreshCw className="w-5 h-5" />
               </div>
             </button>
@@ -233,7 +232,7 @@ function Backup() {
               <div
                 className="radial-progress animate-spin"
                 //@ts-ignore
-                style={{ '--value': 50, '--size': '3rem' }}
+                style={{ "--value": 50, "--size": "3rem" }}
               ></div>
             </div>
           ) : (
@@ -258,11 +257,11 @@ function Backup() {
                       <td>
                         <span
                           className={`badge ${
-                            item.state === 'success'
-                              ? 'badge-success'
-                              : item.state === 'fail'
-                              ? 'badge-error'
-                              : 'badge-warning'
+                            item.state === "success"
+                              ? "badge-success"
+                              : item.state === "fail"
+                              ? "badge-error"
+                              : "badge-warning"
                           }`}
                         >
                           {item.state.toUpperCase()}
@@ -271,17 +270,23 @@ function Backup() {
                       <td>
                         <span className="flex items-center gap-2">
                           <Clock className="text-muted" />
-                          {dayjs(item.createdAt).format('MMMM D, YYYY h:mm A')}
+                          {dayjs(item.createdAt).format("MMMM D, YYYY h:mm A")}
                         </span>
                       </td>
                       <td>
-                        <div className="flex items-center gap-2">
-                          {item.s3Key}
-                          <Copy
-                            className="cursor-pointer"
-                            onClick={() => copyToClipboard(item.s3Key)}
-                          />
-                        </div>
+                        {item.s3Key ? (
+                          <div className="flex items-center gap-2">
+                            {item.s3Key}
+                            <Copy
+                              className="cursor-pointer"
+                              onClick={() => copyToClipboard(item.s3Key)}
+                            />
+                          </div>
+                        ) : (
+                          <div>
+                            <p>-</p>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -296,9 +301,9 @@ function Backup() {
           <div
             className="radial-progress animate-spin"
             //@ts-ignore
-            style={{ '--value': 50, '--size': '4rem' }}
+            style={{ "--value": 50, "--size": "4rem" }}
           ></div>
-          <p className="ml-2">Initiating Backup...</p>
+          <p className="ml-4">Initiating Backup...</p>
         </div>
       )}
     </div>
