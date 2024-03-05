@@ -1,0 +1,26 @@
+{
+  "name": "backup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.525.0",
+    "@aws-sdk/client-s3": "^3.525.0",
+    "@octokit/rest": "^20.0.2",
+    "archiver": "^7.0.0",
+    "mongoose": "^8.2.0",
+    "simple-git": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^6.0.2",
+    "@types/node": "20.11.6",
+    "typescript": "~5.3.3"
+  }
+}

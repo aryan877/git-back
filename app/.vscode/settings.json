@@ -1,0 +1,40 @@
+{
+  "editor.fontSize": 16,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.singleQuote": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "git.autofetch": true,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "debug.onTaskErrors": "abort",
+  "editor.minimap.enabled": false,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true
+  },
+  "editor.largeFileOptimizations": false,
+  "explorer.confirmDelete": false,
+  "editor.inlineSuggest.enabled": true,
+  "markdown.preview.breaks": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.sortImports": "explicit"
+  },
+  "[css]": {
+    "editor.suggest.insertMode": "replace"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "solidity.telemetry": true,
+  "workbench.editor.enablePreview": false,
+  "git.openRepositoryInParentFolders": "never",
+  "files.autoSave": "afterDelay",
+  "workbench.settings.applyToAllProfiles": []
+}
