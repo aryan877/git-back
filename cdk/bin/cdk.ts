@@ -4,7 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import { GithubS3BackupStack } from '../lib/cdk-stack';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-dotenv.config({ path: path.join(__dirname, '../../.env') });
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const app = new cdk.App();
 new GithubS3BackupStack(app, 'CdkStack', {
