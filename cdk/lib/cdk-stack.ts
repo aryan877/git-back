@@ -25,8 +25,8 @@ export class GithubS3BackupStack extends cdk.Stack {
       this,
       "GitBackTaskDefinition",
       {
-        cpu: 4096,
-        memoryLimitMiB: 8192,
+        cpu: 2048,
+        memoryLimitMiB: 4096,
         runtimePlatform: {
           cpuArchitecture: ecs.CpuArchitecture.ARM64,
         },
